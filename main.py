@@ -39,13 +39,16 @@ while game_is_on:
     if player.snake_head.xcor() < -290 or player.snake_head.xcor() > 290 \
             or player.snake_head.ycor() < -290 or player.snake_head.ycor() > 290:
 
+        score.reset()
         game_is_on = False
         score.game_over()
 
     # detect collision with tail
     for node in player.snake_body[1:]:
         if player.snake_head.distance(node) < 10:
+            score.reset()
             game_is_on = False
             score.game_over()
+            break
 
 screen.exitonclick()

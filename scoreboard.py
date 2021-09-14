@@ -7,6 +7,8 @@ class Score(Turtle):
     def __init__(self):
         super().__init__()
         self.points = 0
+        with open("data.txt") as data:
+            self.high_score = int(data.read())
         self.hideturtle()
         self.color('white')
         self.penup()
@@ -14,7 +16,16 @@ class Score(Turtle):
         self.display_score()
 
     def display_score(self):
-        self.write(f'SCORE: {self.points}', align=ALIGNMENT, font=FONT)
+        self.write(f'SCORE: {self.points}   HIGH SCORE:{self.high_score}', align=ALIGNMENT, font=FONT)
+
+    def reset(self):
+        if self.points > self.high_score:
+            self.high_score = self.points
+            with open("data.txt", mode="w") as data:
+                data.write(f'{self.points}')
+        self.clear()
+        self.points = 0
+        self.display_score()
 
     def update_score(self):
         self.points += 1
